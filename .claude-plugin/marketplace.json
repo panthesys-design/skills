@@ -43,12 +43,12 @@
     }
     ,
     {
-      "name": "claude-api",
+      "name": "llm-api-sdk",
       "description": "Claude API and SDK documentation skill for building LLM-powered applications",
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/claude-api"
+        "./skills/llm-api-sdk"
       ]
     },
     {
