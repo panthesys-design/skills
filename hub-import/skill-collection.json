@@ -1,0 +1,522 @@
+{
+  "collection": "hub-import",
+  "generated_at": "2026-11-19",
+  "source": {
+    "skills_repo": "panthesys-design/skills",
+    "branch": "ccr-4413682f-n9coy7",
+    "commit": "e4bb5d9"
+  },
+  "checker": {
+    "name": "SkillEvaluator",
+    "repo": "panthesys-design/SkillEvaluator",
+    "commit": "d2cb138",
+    "version": "0.9.0"
+  },
+  "checks_run": [
+    "quality-check (Tier 1 quality score, keyless)",
+    "validate --tiers 1 --no-llm (Tier 1 static and security)",
+    "harness-check (six agent harnesses, keyless)"
+  ],
+  "checks_not_run": [
+    "Tier 2 dedup and catalog build (needs an embeddings provider key)",
+    "Tier 3 live evaluation (needs a provider key and Docker; no skill here ships an evals/ suite)"
+  ],
+  "summary": {
+    "ready": 3,
+    "review": 12,
+    "fix-first": 4,
+    "hold": 1
+  },
+  "skills": [
+    {
+      "name": "academy-guide",
+      "path": "skills/academy-guide",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 89.8,
+        "grade": "B",
+        "correctness": 85.0,
+        "discoverability": 95.0,
+        "reliability": 85.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Code Integrity & Hygiene"
+        ]
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "review",
+      "absorb": "hub-only",
+      "notes": "Tier 1 'Code Integrity' fails on a dead-link check for an academy.claude.com URL. That host did not respond from the sandbox, so the link is unverified here, not proven broken. Re-check from an open network."
+    },
+    {
+      "name": "algorithmic-art",
+      "path": "skills/algorithmic-art",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 87.8,
+        "grade": "B",
+        "correctness": 90.0,
+        "discoverability": 90.0,
+        "reliability": 75.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Schema & Repository Governance",
+          "Security Scan"
+        ]
+      },
+      "harness": "3 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "fix-first",
+      "absorb": "hub-only",
+      "notes": "Schema: no top-level '# Title', no '## Instructions' section, unexpected nesting depth. Security: SkillSpector analysis-evasion pattern in templates/generator_template.js (partial). OpenClaw degraded: SKILL.md is about 19.8k chars, over its read cap."
+    },
+    {
+      "name": "brand-guidelines",
+      "path": "skills/brand-guidelines",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 86.0,
+        "grade": "B",
+        "correctness": 85.0,
+        "discoverability": 90.0,
+        "reliability": 75.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "passed",
+        "failing_checks": []
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "ready",
+      "absorb": "hub-only",
+      "notes": "Tier 1 clean (9/9). Harness notes are catalog-level listing limits only."
+    },
+    {
+      "name": "canvas-design",
+      "path": "skills/canvas-design",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 81.0,
+        "grade": "B",
+        "correctness": 85.0,
+        "discoverability": 70.0,
+        "reliability": 75.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Schema & Repository Governance",
+          "Security Scan"
+        ]
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "fix-first",
+      "absorb": "hub-only",
+      "notes": "Schema: no '# Title', no '## Instructions', nesting depth (83 files). Security incomplete: three 'Excessive Agency: NOT LIMITED TO' hits."
+    },
+    {
+      "name": "claude-api",
+      "path": "skills/claude-api",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 81.5,
+        "grade": "B",
+        "correctness": 75.0,
+        "discoverability": 85.0,
+        "reliability": 85.0,
+        "efficiency": 85.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Schema & Repository Governance",
+          "Security Scan",
+          "PII Scan",
+          "Code Risk Analysis",
+          "QUALITY"
+        ]
+      },
+      "harness": "1 of 6 not loaded",
+      "has_evals_suite": false,
+      "recommendation": "fix-first",
+      "absorb": "loaded-here",
+      "notes": "Name contains reserved word ('claude'), which the schema rejects. Description is 1,068 chars (limit 1,024), and copilot-cli drops the skill. PII scan flags placeholder emails (jane@co.com, john@co.com). Large body (about 26k estimated tokens)."
+    },
+    {
+      "name": "discernment-nudge",
+      "path": "skills/discernment-nudge",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 81.5,
+        "grade": "B",
+        "correctness": 90.0,
+        "discoverability": 55.0,
+        "reliability": 85.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Security Scan"
+        ]
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "review",
+      "absorb": "skip",
+      "notes": "Security flag 'Anti-Refusal: Always answer' comes from the output rule 'Always answer the question completely first'. The skill appends follow-up questions to answers by design, so a reviewer should decide whether it belongs in the hub at all."
+    },
+    {
+      "name": "doc-coauthoring",
+      "path": "skills/doc-coauthoring",
+      "license": "missing",
+      "quality": {
+        "score": 86.0,
+        "grade": "B",
+        "correctness": 85.0,
+        "discoverability": 90.0,
+        "reliability": 75.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "passed",
+        "failing_checks": []
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "hold",
+      "absorb": "hold",
+      "notes": "Tier 1 clean (9/9), but there is no license field and no LICENSE file. Do not import until the license is confirmed."
+    },
+    {
+      "name": "docx",
+      "path": "skills/docx",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 75.8,
+        "grade": "C",
+        "correctness": 70.0,
+        "discoverability": 65.0,
+        "reliability": 80.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Security Scan",
+          "Code Risk Analysis"
+        ]
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "review",
+      "absorb": "loaded-here",
+      "notes": "Security: 'rm -f ../out.docx' tool-misuse pattern, and os.environ.copy() exfiltration pattern (likely LibreOffice environment setup, needs review). Code risk: insecure temp-file use (CWE-377)."
+    },
+    {
+      "name": "frontend-design",
+      "path": "skills/frontend-design",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 88.5,
+        "grade": "B",
+        "correctness": 85.0,
+        "discoverability": 90.0,
+        "reliability": 85.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Security Scan"
+        ]
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "review",
+      "absorb": "loaded-here",
+      "notes": "Security: 'Anti-Refusal: don't apologize' flagged on a style instruction. Otherwise strong (quality 88.5)."
+    },
+    {
+      "name": "internal-comms",
+      "path": "skills/internal-comms",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 81.0,
+        "grade": "B",
+        "correctness": 85.0,
+        "discoverability": 70.0,
+        "reliability": 75.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Schema & Repository Governance"
+        ]
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "fix-first",
+      "absorb": "hub-only",
+      "notes": "Schema: no '# Title', no '## Instructions', nesting depth. Same structural fixes as algorithmic-art."
+    },
+    {
+      "name": "mcp-builder",
+      "path": "skills/mcp-builder",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 83.2,
+        "grade": "B",
+        "correctness": 70.0,
+        "discoverability": 90.0,
+        "reliability": 85.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Security Scan",
+          "PII Scan",
+          "Code Risk Analysis"
+        ]
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "review",
+      "absorb": "absorb",
+      "notes": "Security: analysis-evasion pattern in reference/node_mcp_server_v2.md (partial). Code risk: xml.etree.ElementTree.parse on untrusted XML. PII scan flags placeholder john@acme.com."
+    },
+    {
+      "name": "pdf",
+      "path": "skills/pdf",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 75.8,
+        "grade": "C",
+        "correctness": 70.0,
+        "discoverability": 75.0,
+        "reliability": 70.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "incomplete",
+        "failing_checks": [
+          "Security Scan"
+        ]
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "review",
+      "absorb": "loaded-here",
+      "notes": "Security incomplete: no permissions declared (MCP least privilege). Trigger-abuse 'keyword baiting' in the description ('Use this skill whenever the user wants to do anything with PDF files')."
+    },
+    {
+      "name": "pptx",
+      "path": "skills/pptx",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 79.5,
+        "grade": "C",
+        "correctness": 80.0,
+        "discoverability": 75.0,
+        "reliability": 80.0,
+        "efficiency": 85.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Security Scan"
+        ]
+      },
+      "harness": "3 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "review",
+      "absorb": "loaded-here",
+      "notes": "Security: 'rm -f ../out.pptx' tool-misuse pattern, and analysis-evasion pattern in scripts/apply_theme.js (partial). Three of six harnesses degraded."
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 79.0,
+        "grade": "C",
+        "correctness": 70.0,
+        "discoverability": 90.0,
+        "reliability": 80.0,
+        "efficiency": 80.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Security Scan"
+        ]
+      },
+      "harness": "3 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "review",
+      "absorb": "loaded-here",
+      "notes": "Security: analysis-evasion pattern in assets/eval_review.html (partial), and os.environ.items() flagged twice. Hybrid skill, three of six harnesses degraded."
+    },
+    {
+      "name": "slack-gif-creator",
+      "path": "skills/slack-gif-creator",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 90.2,
+        "grade": "A",
+        "correctness": 90.0,
+        "discoverability": 90.0,
+        "reliability": 85.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "incomplete",
+        "failing_checks": [
+          "Security Scan"
+        ]
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "review",
+      "absorb": "hub-only",
+      "notes": "Security incomplete: unpinned supply-chain dependencies (pillow>=10.0.0, imageio>=2.31.0) and an SC4 fallback. Pin versions, then re-run."
+    },
+    {
+      "name": "theme-factory",
+      "path": "skills/theme-factory",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 83.5,
+        "grade": "B",
+        "correctness": 85.0,
+        "discoverability": 80.0,
+        "reliability": 75.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Security Scan"
+        ]
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "review",
+      "absorb": "hub-only",
+      "notes": "Security: analysis-evasion pattern on theme-showcase.pdf (binary asset, partial), twice. Probably a false positive on a binary file; confirm."
+    },
+    {
+      "name": "web-artifacts-builder",
+      "path": "skills/web-artifacts-builder",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 80.8,
+        "grade": "B",
+        "correctness": 70.0,
+        "discoverability": 90.0,
+        "reliability": 75.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "passed",
+        "failing_checks": []
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "ready",
+      "absorb": "hub-only",
+      "notes": "Tier 1 clean (11/11)."
+    },
+    {
+      "name": "webapp-testing",
+      "path": "skills/webapp-testing",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 83.2,
+        "grade": "B",
+        "correctness": 70.0,
+        "discoverability": 90.0,
+        "reliability": 85.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Security Scan"
+        ]
+      },
+      "harness": "2 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "review",
+      "absorb": "absorb",
+      "notes": "Security: subprocess.Popen(..., shell=True) on server['cmd'] (dangerous execution pattern), and no declared permissions. Review shell=True before running it on untrusted config."
+    },
+    {
+      "name": "xlsx",
+      "path": "skills/xlsx",
+      "license": "LICENSE.txt",
+      "quality": {
+        "score": 73.2,
+        "grade": "C",
+        "correctness": 70.0,
+        "discoverability": 45.0,
+        "reliability": 90.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "failed",
+        "failing_checks": [
+          "Security Scan",
+          "Code Risk Analysis"
+        ]
+      },
+      "harness": "3 of 6 degraded",
+      "has_evals_suite": false,
+      "recommendation": "review",
+      "absorb": "loaded-here",
+      "notes": "Security: os.environ.copy() flagged, mode=0o666 world-writable file mode flagged, and xml.etree.ElementTree.fromstring on untrusted XML (CWE-611)."
+    },
+    {
+      "name": "skillevaluator",
+      "path": "https://github.com/panthesys-design/SkillEvaluator/tree/ccr-4413682f-n9coy7/skills/skillevaluator",
+      "license": "Apache-2.0 (frontmatter)",
+      "quality": {
+        "score": 98.8,
+        "grade": "A",
+        "correctness": 100.0,
+        "discoverability": 95.0,
+        "reliability": 100.0,
+        "efficiency": 100.0
+      },
+      "tier1": {
+        "status": "passed (quality-check only; full Tier 1 not run)",
+        "failing_checks": []
+      },
+      "harness": "1 of 6 degraded (OpenClaw read cap)",
+      "has_evals_suite": true,
+      "recommendation": "ready",
+      "absorb": "absorb",
+      "notes": "Bundled with SkillEvaluator. Its evals/evals.json has 18 keyless cases. It is the skill I would use to check other skills."
+    }
+  ],
+  "collection_findings": [
+    "All 19 skill descriptions together total 9,384 characters. Claude Code's skill listing fits about 8,000 characters and Codex's about 8,000, so descriptions are shortened when the whole folder loads together. This is why most skills show 2 of 6 harnesses degraded. Import in groups, or shorten descriptions, to avoid it."
+  ],
+  "regenerate": [
+    "cd SkillEvaluator && uv run --python 3.13 skillevaluator quality-check <skill-dir> -r cli -r json -o <out>",
+    "cd SkillEvaluator && uv run --python 3.13 skillevaluator validate <skill-dir> --tiers 1 --no-llm -o <out>",
+    "cd SkillEvaluator && uv run --python 3.13 skillevaluator harness-check <skill-dir>"
+  ]
+}
